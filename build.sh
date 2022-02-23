@@ -1,0 +1,1 @@
+cp app/widget.html index.html
