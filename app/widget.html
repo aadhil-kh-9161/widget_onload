@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h2>This is a sample Widget which logs page load data, hits some apis (user, jsonplaceholder) and Resize</h2>
+    <script>
+      ZOHO.embeddedApp.on("PageLoad", function (data) {
+        console.log('page loaded', data);
+        ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
+        const request = {
+          url : 'https://jsonplaceholder.typicode.com/todos/1'
+        }
+        ZOHO.CRM.HTTP.get(request)
+        .then(function (jsonplaceholder) {
+            console.log({ jsonplaceholder });
+        });
+        ZOHO.CRM.UI.Resize({ height: '70%', width: '70%' }).then(function (data) {
+          console.log({ Resize: data });
+        });
+      });
+      ZOHO.embeddedApp.init();
+    </script>
+  </body>
+</html>
