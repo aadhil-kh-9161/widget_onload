@@ -7,6 +7,20 @@
   <body>
     <h2>This is a sample Widget which logs pageLoad data, hits some apis (user, jsonplaceholder) and Resize</h2>
     <script>
+
+      const socket = new WebSocket('wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self');
+
+      // Connection opened
+      socket.addEventListener('open', function (event) {
+        socket.send('Hello Server!');
+      });
+
+      // Listen for messages
+      socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+      });
+
+
       ZOHO.embeddedApp.on("PageLoad", function (data) {
         console.log('page loaded', data);
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
