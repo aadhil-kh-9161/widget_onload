@@ -640,5 +640,3 @@ var ZSDKUtil = (function(ZSDKUtil) {
   
     Bootstrap(); // Bootstrap for SDK
   };
-  
-  

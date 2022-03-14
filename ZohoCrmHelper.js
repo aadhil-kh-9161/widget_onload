@@ -10,6 +10,12 @@
         embeddedApp: {
             on: function(event, fn) {
                 eventListenerMap[event] = fn;
+                if(appSDK && "function" == typeof fn){
+                    /*
+                    * subscribe listener to event in SDK Side
+                    */
+                    appSDK.getContext().Event.Listen(event,fn);
+                }
             },
             init: function() {
             	if(!isInitTriggered)
