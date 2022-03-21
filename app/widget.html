@@ -39,7 +39,7 @@
         ZOHO.CRM.HTTP.get(request)
         .then(function (jsonplaceholder) {
             console.log({ jsonplaceholder });
-            setTimeout(() => ZDK.Client.closeSelf({ response: 'to be sent back to client script' }), 5000);
+            // setTimeout(() => ZDK.Client.closeSelf({ response: 'to be sent back to client script' }), 5000);
         });
         ZOHO.CRM.UI.Resize({ height: '800px', width: '400px' }).then(function (data) {
           console.log({ Resize: data });
