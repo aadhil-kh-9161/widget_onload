@@ -21,11 +21,11 @@
       });
 
 
-      ZOHO.embeddedApp.on("notify", function (data) {
+      ZOHO.embeddedApp.on("Notify", function (data) {
         console.log('notify some data', data);
       });
 
-      ZOHO.embeddedApp.on("notify_and_wait", function (data) {
+      ZOHO.embeddedApp.on("NotifyAndWait", function (data) {
         console.log('notify and wait', data);
         ZDK.Client.sendResponse(data.id, { choice: 'mail', value: 'example@zoho.com' });
       });
