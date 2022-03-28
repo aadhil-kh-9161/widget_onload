@@ -6,6 +6,7 @@
   </head>
   <body>
     <h2>This is a sample Widget which logs pageLoad data, hits some apis (user, jsonplaceholder) and Resize</h2>
+    <button onclick="closeWidget()">closeWidget</button>
     <script>
 
       const socket = new WebSocket('wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self');
@@ -39,13 +40,16 @@
         ZOHO.CRM.HTTP.get(request)
         .then(function (jsonplaceholder) {
             console.log({ jsonplaceholder });
-            setTimeout(() => $Client.close({ response: 'to be sent back to client script' }), 5000);
         });
         ZOHO.CRM.UI.Resize({ height: '800px', width: '400px' }).then(function (data) {
           console.log({ Resize: data });
         });
       });
       ZOHO.embeddedApp.init();
+
+      function closeWidget() {
+        $Client.close({ response: 'to be sent back to client script' });
+      }
     </script>
   </body>
 </html>
