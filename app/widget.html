@@ -33,19 +33,21 @@
 
       ZOHO.embeddedApp.on("PageLoad", function (data) {
         console.log('page loaded', data);
+        
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
         const request = {
           url : 'https://jsonplaceholder.typicode.com/todos/1'
         }
-        ZOHO.CRM.HTTP.get(request)
-        .then(function (jsonplaceholder) {
-            console.log({ jsonplaceholder });
+
+        ZOHO.CRM.HTTP.get(request).then(function (jsonplaceholder) {
+          console.log({ jsonplaceholder });
         });
+
         ZOHO.CRM.UI.Resize({ height: '800px', width: '400px' }).then(function (data) {
           console.log({ Resize: data });
         });
-        ZOHO.CRM.UI.Record.open({ Entity: "Leads", RecordID: "3720172000004063026" })
-        .then(function(transitionData){
+
+        ZOHO.CRM.UI.Record.open({ Entity: "Leads", RecordID: "3720172000004063026" }).then(function(transitionData){
           console.log({ transitionData });
         });
       });
