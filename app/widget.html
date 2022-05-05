@@ -44,6 +44,10 @@
         ZOHO.CRM.UI.Resize({ height: '800px', width: '400px' }).then(function (data) {
           console.log({ Resize: data });
         });
+        ZOHO.CRM.UI.Record.open({ Entity: "Leads", RecordID: "3720172000004063026" })
+        .then(function(transitionData){
+          console.log({ transitionData });
+        });
       });
       ZOHO.embeddedApp.init();
 
