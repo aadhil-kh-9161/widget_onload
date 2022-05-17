@@ -47,6 +47,14 @@
           console.log({ Resize: data });
         });
 
+        
+        const req_data = {
+          url: 'https://cliq.zoho.com/api/v2/channels?joined=true&pinned=true'
+        };
+        ZOHO.CRM.CONNECTION.invoke('zohocliq', req_data).then(function(data){
+            console.log({ connection: data });
+        });
+
         ZOHO.CRM.UI.Record.open({ Entity: "Leads", RecordID: "3720172000004063026" }).then(function(transitionData){
           console.log({ transitionData });
         });
