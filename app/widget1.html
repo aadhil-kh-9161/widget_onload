@@ -15,7 +15,7 @@
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
         ZOHO.CRM.CONNECTION.invoke('crm_connection', {
           "method" : "GET",
-          "url" : "https://www.zohoapis.com.au/crm/v3/Leads",
+          "url" : "https://www.zohoapis.com.au/crm/v3/Leads?fields=Last_Name,Email",
           "param_type" : 1
         });
         ZOHO.CRM.FUNCTIONS.execute('test_function', {});
