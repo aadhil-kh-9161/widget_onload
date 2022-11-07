@@ -13,6 +13,12 @@
       ZOHO.embeddedApp.on("PageLoad", function (data) {
         console.log('page loaded', data);
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
+        ZOHO.CRM.CONNECTION.invoke('crm_connection', {
+          "method" : "GET",
+          "url" : "https://www.zohoapis.com.au/crm/v3/Leads",
+          "param_type" : 1
+        });
+        ZOHO.CRM.FUNCTIONS.execute('test_function', req_data);
       });
       ZOHO.embeddedApp.init();
     </script>
