@@ -19,6 +19,17 @@
           "param_type" : 1
         });
         ZOHO.CRM.FUNCTIONS.execute('test_function', {});
+        var id = prompt("Please enter leads id:");
+        var config = {
+          Entity: "Leads",
+          APIData: {
+            id: id,
+            "City": "pmk",
+          },
+        };
+        ZOHO.CRM.API.updateRecord(config).then(function (data) {
+          console.log(data);
+        })
       });
       ZOHO.embeddedApp.init();
     </script>
