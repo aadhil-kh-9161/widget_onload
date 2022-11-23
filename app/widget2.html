@@ -14,12 +14,14 @@
         const header1 = document.createElement('h3'); 
         const header2 = document.createElement('h3'); 
         const header3 = document.createElement('h3'); 
+        const header4 = document.createElement('h3'); 
         var currentEnv = await ZOHO.CRM.CONFIG.GetCurrentEnvironment();
         header1.textContent = `Deployment : ${currentEnv.deployment}`;
         header2.textContent = `ZGID : ${currentEnv.zgid}`;
         header3.textContent = `ZUID : ${currentEnv.zuid}`;
+        header4.textContent = `Platform : ${currentEnv.platform || null}`
         const divTag = document.createElement('div'); 
-        divTag.append(header1,header2,header3)
+        divTag.append(header1,header2,header3,header4)
         document.body.appendChild(divTag);
     })
     ZOHO.embeddedApp.init();
