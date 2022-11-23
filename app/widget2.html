@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    ZOHO.embeddedApp.on("PageLoad", async function (data) {
+        const header1 = document.createElement('h3'); 
+        const header2 = document.createElement('h3'); 
+        const header3 = document.createElement('h3'); 
+        var currentEnv = await ZOHO.CRM.CONFIG.GetCurrentEnvironment();
+        header1.textContent = `Deployment : ${currentEnv.deployment}`;
+        header2.textContent = `ZGID : ${currentEnv.zgid}`;
+        header3.textContent = `ZUID : ${currentEnv.zuid}`;
+        const divTag = document.createElement('div'); 
+        divTag.append(header1,header2,header3)
+        document.body.appendChild(divTag);
+    })
+    ZOHO.embeddedApp.init();
+</script>
+</html>
