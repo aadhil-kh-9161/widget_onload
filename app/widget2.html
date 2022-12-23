@@ -23,10 +23,6 @@
         const divTag = document.createElement('div'); 
         divTag.append(header1,header2,header3,header4)
         document.body.appendChild(divTag);
-        ZOHO.CRM.UI.Record.edit({Entity:"Deals",RecordID:"1671226000001992203"})
-        .then(function(data){
-            console.log(data)
-        })
     })
     ZOHO.embeddedApp.init();
 </script>
