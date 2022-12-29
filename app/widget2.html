@@ -25,9 +25,9 @@
         divTag.append(header1,header2,header3,header4)
         document.body.appendChild(divTag);
     })
-    function nextStateBluePrint() {
-        debugger;
-        ZOHO.CRM.BLUEPRINT.proceed();
+    async function nextStateBluePrint() {
+        await ZOHO.CRM.BLUEPRINT.proceed();
+        console.log('test');
     }
     ZOHO.embeddedApp.init();
 </script>
