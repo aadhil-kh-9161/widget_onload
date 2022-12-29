@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+    <button onclick="nextStateBluePrint">Next State in Blueprint</button>
 </body>
 <script>
     ZOHO.embeddedApp.on("PageLoad", async function (data) {
@@ -24,6 +25,9 @@
         divTag.append(header1,header2,header3,header4)
         document.body.appendChild(divTag);
     })
+    function nextStateBluePrint() {
+        ZOHO.CRM.BLUEPRINT.proceed();
+    }
     ZOHO.embeddedApp.init();
 </script>
 </html>
