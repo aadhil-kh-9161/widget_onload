@@ -24,10 +24,10 @@
         const divTag = document.createElement('div'); 
         divTag.append(header1,header2,header3,header4)
         document.body.appendChild(divTag);
+        function nextStateBluePrint() {
+            ZOHO.CRM.BLUEPRINT.proceed();
+        }
     })
-    function nextStateBluePrint() {
-        ZOHO.CRM.BLUEPRINT.proceed();
-    }
     ZOHO.embeddedApp.init();
 </script>
 </html>
