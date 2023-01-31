@@ -8,27 +8,35 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="nextStateBluePrint()">Next State in Blueprint</button>
+    <!-- <button onclick="nextStateBluePrint()">Next State in Blueprint</button> -->
+    <h1>sample populate data</h1>
 </body>
 <script>
     ZOHO.embeddedApp.on("PageLoad", async function (data) {
-        const header1 = document.createElement('h3'); 
-        const header2 = document.createElement('h3'); 
-        const header3 = document.createElement('h3'); 
-        const header4 = document.createElement('h3'); 
-        var currentEnv = await ZOHO.CRM.CONFIG.GetCurrentEnvironment();
-        header1.textContent = `Deployment : ${currentEnv.deployment}`;
-        header2.textContent = `ZGID : ${currentEnv.zgid}`;
-        header3.textContent = `ZUID : ${currentEnv.zuid}`;
-        header4.textContent = `Platform : ${currentEnv.platform || null}`
-        const divTag = document.createElement('div'); 
-        divTag.append(header1,header2,header3,header4)
-        document.body.appendChild(divTag);
+        // const header1 = document.createElement('h3'); 
+        // const header2 = document.createElement('h3'); 
+        // const header3 = document.createElement('h3'); 
+        // const header4 = document.createElement('h3'); 
+        // var currentEnv = await ZOHO.CRM.CONFIG.GetCurrentEnvironment();
+        // header1.textContent = `Deployment : ${currentEnv.deployment}`;
+        // header2.textContent = `ZGID : ${currentEnv.zgid}`;
+        // header3.textContent = `ZUID : ${currentEnv.zuid}`;
+        // header4.textContent = `Platform : ${currentEnv.platform || null}`
+        // const divTag = document.createElement('div'); 
+        // divTag.append(header1,header2,header3,header4)
+        // document.body.appendChild(divTag);
+        // ZOHO.CRM.UI.Record.edit({Entity:"Deals",RecordID:"1671226000001992203"})
+        // .then(function(data){
+        //     console.log(data)
+        // })
+        var testy = await ZOHO.CRM.FUNCTIONS.execute("testpopulate", {})
+        ZOHO.CRM.UI.Record.populate({Description:JSON.parse(testy.details.output).title})
+        ZOHO.CRM.UI.Popup.close()
     })
-    async function nextStateBluePrint() {
-        await ZOHO.CRM.BLUEPRINT.proceed();
-        console.log('test');
-    }
+    // async function nextStateBluePrint() {
+    //     await ZOHO.CRM.BLUEPRINT.proceed();
+    //     console.log('test');
+    // }
     ZOHO.embeddedApp.init();
 </script>
 </html>
