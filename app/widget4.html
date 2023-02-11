@@ -10,10 +10,10 @@
   <body>
     <h2>This is a sample Widget which logs pageLoad data and hits some apis</h2>
     <script>
-      ZOHO.embeddedApp.on("PageLoad", function (data) {
+      ZOHO.embeddedApp.on("PageLoad", async function (data) {
         console.log('page loaded', data);
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
-        const response = ZOHO.CRM.CONNECTION.invoke('crm_connection', {
+        const response = await ZOHO.CRM.CONNECTION.invoke('crm_connection', {
           "method" : "GET",
           "url" : "https://crminteg5.localzoho.com/crm/v2/Leads",
           "param_type" : 1
