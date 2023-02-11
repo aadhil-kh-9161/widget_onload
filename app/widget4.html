@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+    <!-- <script src="./js/ZSDK.js"></script>
+    <script src="./js/Helper.js"></script> -->
+    <!-- <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script> -->
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h2>This is a sample Widget which logs pageLoad data and hits some apis</h2>
+    <script>
+      ZOHO.embeddedApp.on("PageLoad", function (data) {
+        console.log('page loaded', data);
+        ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
+        ZOHO.CRM.CONNECTION.invoke('crm_connection', {
+          "method" : "GET",
+          "url" : "https://crminteg5.localzoho.com/crm/v2/Leads",
+          "param_type" : 1
+        });
+      });
+      ZOHO.embeddedApp.init();
+    </script>
+  </body>
+</html>
