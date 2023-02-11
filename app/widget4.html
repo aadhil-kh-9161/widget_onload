@@ -13,11 +13,12 @@
       ZOHO.embeddedApp.on("PageLoad", function (data) {
         console.log('page loaded', data);
         ZOHO.CRM.API.getAllUsers({Type:"AllUsers"});
-        ZOHO.CRM.CONNECTION.invoke('crm_connection', {
+        const response = ZOHO.CRM.CONNECTION.invoke('crm_connection', {
           "method" : "GET",
           "url" : "https://crminteg5.localzoho.com/crm/v2/Leads",
           "param_type" : 1
         });
+        document.write(JSON.parse(response));
       });
       ZOHO.embeddedApp.init();
     </script>
