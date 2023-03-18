@@ -68,7 +68,12 @@
       ZOHO.embeddedApp.init();
 
       function closeWidget() {
-        $Client.close({ response: 'to be sent back to client script' });
+        if (typeof $Client !== 'undefined') {
+          $Client.close({ response: 'to be sent back to client script' });
+        }
+        ZOHO.CRM.UI.Popup.close().then(function(data){
+          console.log(data);
+        });
       }
     </script>
   </body>
