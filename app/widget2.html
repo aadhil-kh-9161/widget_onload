@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -29,9 +29,24 @@
         // .then(function(data){
         //     console.log(data)
         // })
-        var testy = await ZOHO.CRM.FUNCTIONS.execute("testpopulate", {})
-        ZOHO.CRM.UI.Record.populate({Description:JSON.parse(testy.details.output).title})
-        ZOHO.CRM.UI.Popup.close()
+        // var testy = await ZOHO.CRM.FUNCTIONS.execute("testpopulate", {})
+        // ZOHO.CRM.UI.Record.populate({Description:JSON.parse(testy.details.output).title})
+        // ZOHO.CRM.UI.Popup.close()
+        var data = [{
+            "Company": "ZohoCorp",
+            "First_Name": "Babu"
+        }, {
+            "Company": "ZohoCorp",
+            "First_Name": "Babu"
+        }];
+
+        ZOHO.CRM.API.insertRecord({Entity:"Leads",APIData:data,Trigger:["workflow"]}).then(function(data){
+            console.log('inside then block');
+            console.log(data);
+        }).catch(function(data){
+            console.log('inside catch block');
+            console.log(data);
+        });
     })
     // async function nextStateBluePrint() {
     //     await ZOHO.CRM.BLUEPRINT.proceed();
