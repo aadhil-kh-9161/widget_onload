@@ -32,21 +32,32 @@
         // var testy = await ZOHO.CRM.FUNCTIONS.execute("testpopulate", {})
         // ZOHO.CRM.UI.Record.populate({Description:JSON.parse(testy.details.output).title})
         // ZOHO.CRM.UI.Popup.close()
-        var data = [{
-            "Company": "ZohoCorp",
-            "First_Name": "Babu"
-        }, {
-            "Company": "ZohoCorp",
-            "First_Name": "Babu"
-        }];
+        // var data = [{
+        //     "Company": "ZohoCorp",
+        //     "First_Name": "Babu"
+        // }, {
+        //     "Company": "ZohoCorp",
+        //     "First_Name": "Babu"
+        // }];
 
-        ZOHO.CRM.API.insertRecord({Entity:"Leads",APIData:data,Trigger:["workflow"]}).then(function(data){
-            console.log('inside then block');
-            console.log(data);
-        }).catch(function(data){
-            console.log('inside catch block');
-            console.log(data);
-        });
+        // ZOHO.CRM.API.insertRecord({Entity:"Leads",APIData:data,Trigger:["workflow"]}).then(function(data){
+        //     console.log('inside then block');
+        //     console.log(data);
+        // }).catch(function(data){
+        //     console.log('inside catch block');
+        //     console.log(data);
+        // });
+        var config={
+          Entity:"Leads",
+          APIData:{
+                "id": data.EntityId[0],
+                "Company": "Zylker"
+          }
+        }
+        ZOHO.CRM.API.updateRecord(config)
+        .then(function(data){
+            console.log(data)
+        })
     })
     // async function nextStateBluePrint() {
     //     await ZOHO.CRM.BLUEPRINT.proceed();
