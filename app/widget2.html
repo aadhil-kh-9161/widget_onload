@@ -47,17 +47,18 @@
         //     console.log('inside catch block');
         //     console.log(data);
         // });
-        var config={
-          Entity:"Leads",
-          APIData:{
-                "id": data.EntityId[0],
-                "Company": "Zylker"
-          }
-        }
-        ZOHO.CRM.API.updateRecord(config)
-        .then(function(data){
-            console.log(data)
-        })
+        // var config={
+        //   Entity:"Leads",
+        //   APIData:{
+        //         "id": data.EntityId[0],
+        //         "Company": "Zylker"
+        //   }
+        // }
+        // ZOHO.CRM.API.updateRecord(config)
+        // .then(function(data){
+        //     console.log(data)
+        // })
+        ZOHO.CRM.UI.Popup.closeReload()
     })
     // async function nextStateBluePrint() {
     //     await ZOHO.CRM.BLUEPRINT.proceed();
