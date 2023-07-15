@@ -59,7 +59,7 @@
         // .then(function(data){
         //     console.log(data)
         // })
-        const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.Entity.id})
+        const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.EntityId})
         console.log(rec);
     })
     // async function nextStateBluePrint() {
