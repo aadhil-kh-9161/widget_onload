@@ -58,7 +58,8 @@
         // .then(function(data){
         //     console.log(data)
         // })
-        ZOHO.CRM.UI.Popup.closeReload()
+        const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.Entity.id})
+        console.log(rec);
     })
     // async function nextStateBluePrint() {
     //     await ZOHO.CRM.BLUEPRINT.proceed();
