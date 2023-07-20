@@ -13,7 +13,7 @@
 </body>
 <script>
     ZOHO.embeddedApp.on("PageLoad", async function (data) {
-        console.log(data);
+        // console.log(data);
         // const header1 = document.createElement('h3'); 
         // const header2 = document.createElement('h3'); 
         // const header3 = document.createElement('h3'); 
@@ -59,8 +59,12 @@
         // .then(function(data){
         //     console.log(data)
         // })
-        const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.EntityId})
-        console.log(rec);
+        // const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.EntityId})
+        // console.log(rec);
+        ZOHO.CRM.UI.Record.open({Entity:data.Entity,RecordID:data.EntityId})
+        .then(function(data){
+            console.log(data)
+        })
     })
     // async function nextStateBluePrint() {
     //     await ZOHO.CRM.BLUEPRINT.proceed();
