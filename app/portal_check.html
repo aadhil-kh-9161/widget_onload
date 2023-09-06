@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+  <script>
+ function fun()
+ {
+ 	ZOHO.embeddedApp.init().then(function(){
+  ZOHO.CRM.API.getAllRecords({Entity:"Leads",sort_order:"asc",per_page:200,page:1})
+.then(function(data){
+console.log(data);
+var d=Object.values(data);
+console.log(d[0].length);
+   //console.log(data);
+   //var d = JSON.parse(data);
+   //console.log(d[0].getJson("Last_Name"));
+   var table = document.createElement('table');
+   var th1=document.createElement('th');
+   var th2=document.createElement('th');
+   var th3=document.createElement('th');
+   
+   th1.innerHTML="Last Name";
+   th2.innerHTML="Email";
+   th3.innerHTML="Phone";
+   //th1.appendChild(td1);
+   table.appendChild(th1);
+   table.appendChild(th2);
+   table.appendChild(th3);
+   
+   for(var i=0;i<d[0].length;i++)
+   {
+   	let tr = document.createElement('tr');
+   	for(var j=0;j<3;j++)
+   	{
+   		if(j == 0)
+   		{
+   			
+   		let td = document.createElement('td');
+   		td.innerHTML=d[0][i].Last_Name;
+   		tr.appendChild(td);
+   		table.appendChild(tr);
+   		}
+   		else if(j ==1)
+   		{
+   			
+   		let td = document.createElement('td');
+   		td.innerHTML=d[0][i].Email;
+   		tr.appendChild(td);
+   		table.appendChild(tr);
+   		}
+   		else
+   		{
+   			
+   		let td = document.createElement('td');
+   		td.innerHTML=d[0][i].Phone;
+   		tr.appendChild(td);
+   		table.appendChild(tr);
+   		}
+   	}
+   }
+   
+   var t = document.getElementById('body');
+   t.appendChild(table)
+   
+ });
+ 
+ });
+ }
+ </script>
+    <meta charset="UTF-8">
+  </head>
+  <body id="body">
+    <h2>Get All Records</h2>
+    <input type="text" id="module" placeholder="Module Name"/>
+    <button onclick="fun()">Get</button>
+  </body>
+</html>
