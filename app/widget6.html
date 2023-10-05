@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
+</head>
+
+<body>
+  <h2>This is a sample Widget built using Zoho Extension toolkit.</h2>
+  <button onclick="navigateTo()">click to navigate</button>
+  <script>
+    function navigateTo() {
+      ZOHO.CRM.UI.Widget.open({
+          Entity: "webTabNewWidget",
+          Message: "message"
+        })
+        .then(function (data) {
+          console.log(data)
+        })
+    }
+    ZOHO.embeddedApp.init();
+  </script>
+</body>
+
+</html>
