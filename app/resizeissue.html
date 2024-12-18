@@ -1,0 +1,42 @@
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>Select Service</title>
+    
+    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
+
+</head>
+<body>
+    <div>
+        <h5 class="modal-title">Message</h5>
+    </div>
+  <div id="img-loader" class="d-none" style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: grey center center no-repeat !important; text-align: center; '>
+  </div>
+
+<script>
+  function closeWindow(){
+     ZOHO.CRM.UI.Popup.close()
+.then(function(data){
+    console.log(data)
+})
+
+}
+window.onload = initializeWidget();
+  function initializeWidget() {
+
+    ZOHO.embeddedApp.on("PageLoad", function(data) {
+        ZOHO.CRM.UI.Resize({height:"100%",width:"100%"}).then(function(data){console.log("resize method invoked");});
+    })
+
+
+    ZOHO.embeddedApp.init();
+
+}
+  
+//$(document).ready(function () {
+//  console.log("jquery qorking");
+//});
+  </script>
+
+</body>
+</html>
