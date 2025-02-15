@@ -4,7 +4,7 @@
     <title>Confirmation</title>
 </head>
 <body>
-    <!-- assume that this is rendered in a popup as iframe. add some styles-->
+    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
     <style>
         body {
             display: flex;
@@ -56,12 +56,16 @@
         <button id="cancel">Cancel</button>
     </div>
     <script>
-        document.getElementById('ok').addEventListener('click', function() {
-            window.location.href = 'http://localhost:8000/app/ok';
+        ZOHO.embeddedApp.on("PageLoad", function(data) {
+	        console.log(data);
+            document.getElementById('ok').addEventListener('click', function() {
+                alert(data.EntityId);
+            });
+            document.getElementById('cancel').addEventListener('click', function() {
+                ZOHO.CRM.UI.Popup.close();
+            });
         });
-        document.getElementById('cancel').addEventListener('click', function() {
-            window.location.href = 'http://localhost:8000/app/cancel';
-        });
+        ZOHO.embeddedApp.init();
     </script>
 </body>
 </html>
