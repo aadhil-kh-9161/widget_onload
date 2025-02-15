@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation</title>
+</head>
+<body>
+    <!-- assume that this is rendered in a popup as iframe. add some styles-->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+    </style>
+    <h1>Are you sure you want to proceed?</h1>
+    <br>
+    <button id="ok">Ok</button>
+    <button id="cancel">Cancel</button>
+    <script>
+        document.getElementById('ok').addEventListener('click', function() {
+            window.location.href = 'http://localhost:8000/app/ok';
+        });
+    </script>
+</body>
+</html>
