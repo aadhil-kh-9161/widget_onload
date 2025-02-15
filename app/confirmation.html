@@ -57,13 +57,12 @@
     </div>
     <script>
         ZOHO.embeddedApp.on("PageLoad", function(data) {
-	        console.log(data);
-            document.getElementById('ok').addEventListener('click', function() {
-                alert(data.EntityId);
-            });
-            document.getElementById('cancel').addEventListener('click', function() {
-                ZOHO.CRM.UI.Popup.close();
-            });
+		document.getElementById('ok').addEventListener('click', function() {
+			alert(data.EntityId);
+		});
+		document.getElementById('cancel').addEventListener('click', function() {
+			ZOHO.CRM.UI.Popup.close();
+		});
         });
         ZOHO.embeddedApp.init();
     </script>
