@@ -12,23 +12,55 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            flex-direction: column;
         }
         h1 {
             text-align: center;
+            color: #333;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            padding: 0 20px;
         }
         button {
             padding: 10px 20px;
             margin: 0 10px;
             font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button#ok {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button#ok:hover {
+            background-color: #45a049;
+        }
+        button#cancel {
+            background-color: #f44336;
+            color: white;
+        }
+        button#cancel:hover {
+            background-color: #e53935;
         }
     </style>
     <h1>Are you sure you want to proceed?</h1>
-    <br>
-    <button id="ok">Ok</button>
-    <button id="cancel">Cancel</button>
+    <div class="button-container">
+        <button id="ok">Ok</button>
+        <button id="cancel">Cancel</button>
+    </div>
     <script>
         document.getElementById('ok').addEventListener('click', function() {
             window.location.href = 'http://localhost:8000/app/ok';
+        });
+        document.getElementById('cancel').addEventListener('click', function() {
+            window.location.href = 'http://localhost:8000/app/cancel';
         });
     </script>
 </body>
