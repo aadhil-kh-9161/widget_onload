@@ -3,23 +3,27 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
 </head>
 
 <body>
   <h2>This is a sample Widget built using Zoho Extension toolkit.</h2>
-  <button onclick="navigateTo()">click to navigate</button>
+  <!-- Place this in widget6.html (hosted at widget-onload.netlify.app) -->
   <script>
-    function navigateTo() {
-      ZOHO.CRM.UI.Widget.open({
-          Entity: "webTabNewWidget",
-          Message: "message"
-        })
-        .then(function (data) {
-          console.log(data)
-        })
-    }
-    ZOHO.embeddedApp.init();
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'init-port' && event.ports[0]) {
+        const port = event.ports[0];
+
+        // Request data from widget.html (manager)
+        port.postMessage({ type: 'getWidgetData' });
+
+        port.onmessage = (e) => {
+          if (e.data.type === 'widgetData') {
+            // Handle received data from widget.html
+            console.log('Received data from manager:', e.data.data);
+          }
+        };
+      }
+    });
   </script>
 </body>
 
