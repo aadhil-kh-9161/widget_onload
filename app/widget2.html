@@ -1,75 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Zoho CRM Client Script Assistant</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Prism for code highlighting -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <!-- Font‑Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue-600: #0d6efd;
+      --gray-100: #f8f9fa;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e3e8ee 100%);
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      max-width: 920px;
+      height: 80vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 32px rgba(60,72,88,0.12);
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px 18px 90px 18px;
+      position: relative;
+    }
+
+    .chat-messages {
+      flex: 1 1 0;
+      overflow-y: auto;
+      padding: 20px 8px 0 8px;
+      background: transparent;
+      border-radius: 10px;
+      margin-bottom: 0;
+    }
+
+    .message {
+      margin-bottom: 18px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      max-width: 85%;
+      box-shadow: 0 2px 8px rgba(60,72,88,0.07);
+      transition: box-shadow 0.2s;
+    }
+
+    .message:hover {
+      box-shadow: 0 4px 16px rgba(60,72,88,0.13);
+    }
+
+    .user-message {
+      background: #f7fafc;
+      color: #222;
+      margin-left: auto;
+      text-align: right;
+      border: 1px solid #e0e0e0;
+    }
+
+    .bot-message {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      margin-right: auto;
+    }
+
+    .loading {
+      display: none;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f7fafc;
+      border: 2px dashed var(--blue-600);
+      text-align: center;
+      margin-bottom: 10px;
+      position: absolute;
+      left: 0; right: 0; bottom: 80px;
+      z-index: 2;
+    }
+
+    .code-block {
+      background: #2d3748;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 10px 0;
+      box-shadow: 0 2px 8px rgba(60,72,88,0.09);
+    }
+
+    .code-header {
+      background: #4a5568;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 15px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .copy-btn:hover {
+      color: #90cdf4;
+    }
+
+    pre {
+      margin: 0 !important;
+      padding: 15px !important;
+      background: transparent !important;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: #b0b7c3;
+      margin-top: 7px;
+      text-align: right;
+    }
+
+    .welcome-message {
+      text-align: center;
+      color: #6c757d;
+      padding: 40px 20px 20px 20px;
+      font-size: 1.1rem;
+    }
+
+    #chatForm {
+      position: fixed;
+      left: 0; right: 0;
+      bottom: 0;
+      max-width: 920px;
+      margin: 0 auto 0 auto;
+      background: #fff;
+      padding: 18px 18px 12px 18px;
+      border-top: 1px solid #e3e8ee;
+      box-shadow: 0 -2px 12px rgba(60,72,88,0.07);
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+    }
+
+    #questionInput {
+      font-size: 1.1rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #e3e8ee;
+      background: #f7fafc;
+      transition: border-color 0.2s;
+    }
+    #questionInput:focus {
+      border-color: var(--blue-600);
+      outline: none;
+      background: #fff;
+    }
+
+    #sendBtn {
+      font-size: 1.1rem;
+      padding: 0 22px;
+      border-radius: 8px;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(60,72,88,0.09);
+    }
+    #sendBtn:active {
+      background: var(--blue-600);
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <!-- <button onclick="nextStateBluePrint()">Next State in Blueprint</button> -->
-    <h1>sample populate data</h1>
-</body>
-<script>
-    ZOHO.embeddedApp.on("PageLoad", async function (data) {
-        // console.log(data);
-        // const header1 = document.createElement('h3'); 
-        // const header2 = document.createElement('h3'); 
-        // const header3 = document.createElement('h3'); 
-        // const header4 = document.createElement('h3'); 
-        // var currentEnv = await ZOHO.CRM.CONFIG.GetCurrentEnvironment();
-        // header1.textContent = `Deployment : ${currentEnv.deployment}`;
-        // header2.textContent = `ZGID : ${currentEnv.zgid}`;
-        // header3.textContent = `ZUID : ${currentEnv.zuid}`;
-        // header4.textContent = `Platform : ${currentEnv.platform || null}`
-        // const divTag = document.createElement('div'); 
-        // divTag.append(header1,header2,header3,header4)
-        // document.body.appendChild(divTag);
-        // ZOHO.CRM.UI.Record.edit({Entity:"Deals",RecordID:"1671226000001992203"})
-        // .then(function(data){
-        //     console.log(data)
-        // })
-        // var testy = await ZOHO.CRM.FUNCTIONS.execute("testpopulate", {})
-        // ZOHO.CRM.UI.Record.populate({Description:JSON.parse(testy.details.output).title})
-        // ZOHO.CRM.UI.Popup.close()
-        // var data = [{
-        //     "Company": "ZohoCorp",
-        //     "First_Name": "Babu"
-        // }, {
-        //     "Company": "ZohoCorp",
-        //     "First_Name": "Babu"
-        // }];
+  <div class="container-fluid py-4">
+    <h1 class="text-center mb-4">
+      <i class="fas fa-robot text-primary"></i> Zoho CRM Client Script Assistant
+    </h1>
 
-        // ZOHO.CRM.API.insertRecord({Entity:"Leads",APIData:data,Trigger:["workflow"]}).then(function(data){
-        //     console.log('inside then block');
-        //     console.log(data);
-        // }).catch(function(data){
-        //     console.log('inside catch block');
-        //     console.log(data);
-        // });
-        // var config={
-        //   Entity:"Leads",
-        //   APIData:{
-        //         "id": data.EntityId[0],
-        //         "Company": "Zylker"
-        //   }
-        // }
-        // ZOHO.CRM.API.updateRecord(config)
-        // .then(function(data){
-        //     console.log(data)
-        // })
-        // const rec = await ZOHO.CRM.API.getRecord({ Entity: data.Entity, approved: "both", RecordID:data.EntityId})
-        // console.log(rec);
-        ZOHO.CRM.UI.Record.open({Entity:data.Entity,RecordID:data.EntityId})
-        .then(function(data){
-            console.log(data)
-        })
-    })
-    // async function nextStateBluePrint() {
-    //     await ZOHO.CRM.BLUEPRINT.proceed();
-    //     console.log('test');
-    // }
-    ZOHO.embeddedApp.init();
-</script>
+    <div class="chat-container">
+      <!-- Messages -->
+      <div id="chatMessages" class="chat-messages">
+        <div class="welcome-message">
+          <h4><i class="fas fa-comments"></i> Welcome!</h4>
+          <p>Ask me anything about Zoho CRM Client Scripts, ZDK, ZRC SDK, or API usage.</p>
+        </div>
+      </div>
+
+      <!-- Spinner -->
+      <div id="loading" class="loading">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Thinking...</p>
+      </div>
+
+      <!-- Input area -->
+      <form id="chatForm" class="d-flex gap-2" autocomplete="off">
+        <input
+          id="questionInput"
+          class="form-control"
+          type="text"
+          placeholder="Ask your Zoho CRM Client Script question..."
+          maxlength="1000"
+        />
+        <button id="sendBtn" class="btn btn-primary" type="submit">
+          <i class="fas fa-paper-plane"></i> Send
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.2/marked.min.js"></script>
+
+  <script>
+    const API_BASE_URL = 'https://aadhil-9161.csez.zohocorpin.com:8443';
+
+    let isProcessing = false; // prevents duplicate requests
+    let blockId = 0; // unique ID for each code block
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intercept form submit (both Send click and Enter key)
+      document.getElementById('chatForm').addEventListener('submit', submitHandler);
+
+      // Initial health check
+      checkAPIHealth();
+    });
+
+    async function checkAPIHealth() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/health`);
+        if (!res.ok) throw new Error('API not healthy');
+      } catch (err) {
+        addBotMessage('⚠️ Cannot reach API server. Is it running?');
+      }
+    }
+
+    async function submitHandler(e) {
+      e.preventDefault();
+      if (isProcessing) return; // guard
+      const input = document.getElementById('questionInput');
+      const question = input.value.trim();
+      if (!question) return;
+      isProcessing = true;
+
+      addUserMessage(question);
+      toggleLoading(true);
+      input.value = '';
+      input.focus();
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30_000);
+
+        const res = await fetch(`${API_BASE_URL}/ask`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
+
+        if (!res.ok) {
+          const { detail } = await res.json().catch(() => ({}));
+          throw new Error(detail || `HTTP ${res.status}`);
+        }
+
+        const { answer } = await res.json();
+        addBotMessage(answer);
+      } catch (err) {
+        const msg =
+          err.name === 'AbortError'
+            ? '⏱️ Request timed out after 30 seconds.'
+            : `❌ Error: ${err.message}`;
+        addBotMessage(msg, true);
+      } finally {
+        toggleLoading(false);
+        isProcessing = false;
+      }
+    }
+
+    // UI helpers -----------------------------------------------------------
+    function addUserMessage(text) {
+      const wrap = buildMessage(text, 'user-message');
+      document.getElementById('chatMessages').appendChild(wrap);
+      scrollToBottom();
+    }
+
+    function addBotMessage(text, isError = false) {
+      const html = formatMarkdown(text);
+      const wrap = buildMessage(html, 'bot-message' + (isError ? ' border-danger' : ''), true);
+      document.getElementById('chatMessages').appendChild(wrap);
+      Prism.highlightAllUnder(wrap);
+      scrollToBottom();
+    }
+
+    function buildMessage(content, cls = '', isHTML = false) {
+      const div = document.createElement('div');
+      div.className = `message ${cls}`;
+      div.innerHTML =
+        (cls.includes('bot-message')
+          ? '<div class="mb-2"><i class="fas fa-robot text-primary"></i> <strong>Assistant</strong></div>'
+          : '') +
+        `<div>${isHTML ? content : escapeHtml(content)}</div>` +
+        `<div class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>`;
+      return div;
+    }
+
+    function toggleLoading(show) {
+      document.getElementById('loading').style.display = show ? 'block' : 'none';
+      document.getElementById('sendBtn').disabled = show;
+      document.getElementById('questionInput').disabled = show;
+      document.getElementById('sendBtn').innerHTML = show
+        ? '<i class="fas fa-hourglass-half"></i> Thinking...'
+        : '<i class="fas fa-paper-plane"></i> Send';
+    }
+
+    function scrollToBottom() {
+      const el = document.getElementById('chatMessages');
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function formatMarkdown(md) {
+      // markdown -> HTML + custom code block wrapper
+      let html = marked.parse(md);
+      html = html.replace(/<pre><code class="language-(\w+)">([\s\S]*?)<\/code><\/pre>/g, (_, lang, code) => {
+        const id = `code-${++blockId}`;
+        return `<div class="code-block"><div class="code-header">${lang.toUpperCase()}<button class="copy-btn" onclick="copyCode('${id}')"><i class='fas fa-copy'></i> Copy</button></div><pre><code id="${id}" class="language-${lang}">${code}</code></pre></div>`;
+      });
+      // no‑lang blocks
+      html = html.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, (_, code) => {
+        const id = `code-${++blockId}`;
+        return `<div class="code-block"><div class="code-header">CODE<button class="copy-btn" onclick="copyCode('${id}')"><i class='fas fa-copy'></i> Copy</button></div><pre><code id="${id}" class="language-javascript">${code}</code></pre></div>`;
+      });
+      return html;
+    }
+
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector(`button[onclick="copyCode('${id}')"]`);
+        const tmp = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => (btn.innerHTML = tmp), 2_000);
+      });
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+  </script>
+</body>
 </html>
