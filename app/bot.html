@@ -16,84 +16,140 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
     :root {
-      --blue-600: #0d6efd;
+      --blue-600: #007bff;
       --gray-100: #f8f9fa;
+      --text-dark: #162136;
+      --text-light: #6c757d;
+      --bg-soft: #f4f7f6;
+      --border-color: #e9ecef;
     }
 
     body {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e3e8ee 100%);
+      background: var(--bg-soft);
       min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1.text-center.mb-4 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2rem !important;
     }
 
     .chat-container {
       max-width: 920px;
-      height: 80vh;
+      height: 85vh;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 32px rgba(60,72,88,0.12);
+      box-shadow: 0 12px 48px rgba(22, 33, 54, 0.08);
       background: #fff;
-      border-radius: 18px;
-      padding: 24px 18px 90px 18px;
+      border-radius: 24px;
+      padding: 24px;
       position: relative;
     }
 
     .chat-messages {
       flex: 1 1 0;
       overflow-y: auto;
-      padding: 20px 8px 0 8px;
+      overflow-x: hidden;
+      padding: 10px;
       background: transparent;
-      border-radius: 10px;
       margin-bottom: 0;
+      word-wrap: break-word;
     }
 
     .message {
-      margin-bottom: 18px;
-      padding: 16px 20px;
-      border-radius: 14px;
-      max-width: 85%;
-      box-shadow: 0 2px 8px rgba(60,72,88,0.07);
-      transition: box-shadow 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      max-width: 80%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      box-shadow: none;
     }
 
-    .message:hover {
-      box-shadow: 0 4px 16px rgba(60,72,88,0.13);
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .user-message .message-avatar {
+      background: var(--blue-600);
+    }
+
+    .bot-message .message-avatar {
+      background: var(--text-light);
+    }
+
+    .message-content {
+      padding: 15px 20px;
+      border-radius: 18px;
+      color: var(--text-dark);
+      position: relative;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     .user-message {
-      background: #f7fafc;
-      color: #222;
       margin-left: auto;
-      text-align: right;
-      border: 1px solid #e0e0e0;
+      flex-direction: row-reverse;
+    }
+
+    .user-message .message-content {
+      background: var(--blue-600);
+      color: #fff;
+      border-top-right-radius: 4px;
     }
 
     .bot-message {
-      background: #fff;
-      border: 1px solid #dee2e6;
       margin-right: auto;
+    }
+
+    .bot-message .message-content {
+      background: #e9ecef;
+      border-top-left-radius: 4px;
     }
 
     .loading {
       display: none;
       padding: 20px;
       border-radius: 10px;
-      background: #f7fafc;
-      border: 2px dashed var(--blue-600);
       text-align: center;
       margin-bottom: 10px;
       position: absolute;
-      left: 0; right: 0; bottom: 80px;
+      left: 0;
+      right: 0;
+      bottom: 80px;
       z-index: 2;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
     }
 
     .code-block {
       background: #2d3748;
       border-radius: 8px;
-      overflow-x: auto;
+      overflow-x: hidden;
       margin: 10px 0;
-      box-shadow: 0 2px 8px rgba(60,72,88,0.09);
+      box-shadow: 0 2px 8px rgba(60, 72, 88, 0.09);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .code-header {
@@ -126,6 +182,11 @@
       margin: 0 !important;
       padding: 15px !important;
       background: transparent !important;
+      white-space: pre-wrap !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
     }
 
     .timestamp {
@@ -134,55 +195,151 @@
       margin-top: 7px;
       text-align: right;
     }
+    
+    .user-message .timestamp {
+        color: rgba(255,255,255,0.7);
+    }
 
     .welcome-message {
       text-align: center;
-      color: #6c757d;
-      padding: 40px 20px 20px 20px;
+      color: var(--text-light);
+      padding: 60px 20px;
       font-size: 1.1rem;
+      border: 1px dashed #dce1e6;
+      border-radius: 16px;
+      background-color: #f8f9fa;
+    }
+
+    .welcome-message h4 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
     }
 
     #chatForm {
-      position: fixed;
-      left: 0; right: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
       bottom: 0;
       max-width: 920px;
-      margin: 0 auto 0 auto;
+      margin: 0 auto;
       background: #fff;
-      padding: 18px 18px 12px 18px;
-      border-top: 1px solid #e3e8ee;
-      box-shadow: 0 -2px 12px rgba(60,72,88,0.07);
-      border-bottom-left-radius: 18px;
-      border-bottom-right-radius: 18px;
+      padding: 15px 24px;
+      border-top: 1px solid var(--border-color);
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
       z-index: 10;
       display: flex;
-      gap: 10px;
+      gap: 15px;
+      align-items: center;
     }
 
     #questionInput {
-      font-size: 1.1rem;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid #e3e8ee;
-      background: #f7fafc;
-      transition: border-color 0.2s;
+      font-size: 1rem;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: #f1f3f5;
+      transition: all 0.2s;
+      flex: 1;
     }
+
     #questionInput:focus {
       border-color: var(--blue-600);
       outline: none;
       background: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
     }
 
     #sendBtn {
-      font-size: 1.1rem;
-      padding: 0 22px;
-      border-radius: 8px;
+      font-size: 1rem;
+      padding: 14px 22px;
+      border-radius: 12px;
       transition: background 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px rgba(60,72,88,0.09);
+      box-shadow: 0 2px 8px rgba(60, 72, 88, 0.09);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
     #sendBtn:active {
       background: var(--blue-600);
       color: #fff;
+    }
+
+    .model-select-label {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+
+    #modelSelect {
+      min-width: 200px;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: #f1f3f5;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    #modelSelect:focus {
+      border-color: var(--blue-600);
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    .bot-message.border-danger .message-content {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: #f1f3f5;
+      border-radius: 10px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #dce1e6;
+      border-radius: 10px;
+    }
+
+    /* Ensure all text content wraps properly */
+    code {
+      white-space: pre-wrap !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+
+    /* Handle long URLs and text */
+    .message-content p,
+    .message-content div,
+    .message-content span {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+      background: #ced4da;
+    }
+    
+    /* Remove conflicting rules */
+    .model-select-wrapper,
+    .form-select,
+    .d-flex.align-items-center.mb-3,
+    .form-label.mb-0,
+    .form-select.shadow-sm {
+      all: unset;
     }
   </style>
 </head>
@@ -209,6 +366,13 @@
 
       <!-- Input area -->
       <form id="chatForm" class="d-flex gap-2" autocomplete="off">
+        <label for="modelSelect" class="model-select-label">Model:</label>
+        <select id="modelSelect">
+          <option value="gemini-2.5-flash" selected>Gemini Flash</option>
+          <option value="gemini-2.5-lite">Gemini Lite</option>
+          <option value="gemini-2.5-pro">Gemini Pro</option>
+        </select>
+
         <input
           id="questionInput"
           class="form-control"
@@ -218,6 +382,9 @@
         />
         <button id="sendBtn" class="btn btn-primary" type="submit">
           <i class="fas fa-paper-plane"></i> Send
+        </button>
+        <button id="clearBtn" class="btn btn-outline-secondary" type="button" onclick="clearConversation()" title="Clear conversation history">
+          <i class="fas fa-trash"></i>
         </button>
       </form>
     </div>
@@ -234,6 +401,7 @@
 
     let isProcessing = false; // prevents duplicate requests
     let blockId = 0; // unique ID for each code block
+    let conversationHistory = []; // Store conversation history
 
     document.addEventListener('DOMContentLoaded', () => {
       // Intercept form submit (both Send click and Enter key)
@@ -256,6 +424,7 @@
       e.preventDefault();
       if (isProcessing) return; // guard
       const input = document.getElementById('questionInput');
+      const model = document.getElementById('modelSelect').value;
       const question = input.value.trim();
       if (!question) return;
       isProcessing = true;
@@ -267,12 +436,16 @@
 
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 30_000);
+        const timeout = setTimeout(() => controller.abort(), 300_000);
 
         const res = await fetch(`${API_BASE_URL}/ask`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question }),
+          body: JSON.stringify({ 
+            question, 
+            model,
+            conversation_history: conversationHistory
+          }),
           signal: controller.signal,
         });
         clearTimeout(timeout);
@@ -284,6 +457,21 @@
 
         const { answer } = await res.json();
         addBotMessage(answer);
+        
+        // Add to conversation history
+        conversationHistory.push({
+          role: 'user',
+          content: question
+        });
+        conversationHistory.push({
+          role: 'assistant', 
+          content: answer
+        });
+        
+        // Keep only last 10 messages (5 exchanges) to prevent context overflow
+        if (conversationHistory.length > 10) {
+          conversationHistory = conversationHistory.slice(-10);
+        }
       } catch (err) {
         const msg =
           err.name === 'AbortError'
@@ -312,14 +500,36 @@
     }
 
     function buildMessage(content, cls = '', isHTML = false) {
+      const isBot = cls.includes('bot-message');
       const div = document.createElement('div');
       div.className = `message ${cls}`;
-      div.innerHTML =
-        (cls.includes('bot-message')
-          ? '<div class="mb-2"><i class="fas fa-robot text-primary"></i> <strong>Assistant</strong></div>'
-          : '') +
-        `<div>${isHTML ? content : escapeHtml(content)}</div>` +
-        `<div class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>`;
+
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.innerHTML = `<i class="fas ${isBot ? 'fa-robot' : 'fa-user'}"></i>`;
+
+      const messageContent = document.createElement('div');
+      messageContent.className = 'message-content';
+
+      const contentDiv = document.createElement('div');
+      if (isHTML) {
+        contentDiv.innerHTML = content;
+      } else {
+        contentDiv.textContent = content;
+      }
+      messageContent.appendChild(contentDiv);
+
+      const timestamp = document.createElement('div');
+      timestamp.className = 'timestamp';
+      timestamp.textContent = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      messageContent.appendChild(timestamp);
+
+      div.appendChild(avatar);
+      div.appendChild(messageContent);
+
       return div;
     }
 
@@ -362,11 +572,25 @@
       });
     }
 
+    function clearConversation() {
+      if (confirm('Are you sure you want to clear the conversation history?')) {
+        conversationHistory = [];
+        document.getElementById('chatMessages').innerHTML = `
+          <div class="welcome-message">
+            <h4><i class="fas fa-robot me-2"></i>Zoho CRM Client Script Assistant</h4>
+            <p>Ask me about Zoho CRM Client Scripts, ZDK, ZRC SDK, or API integrations.</p>
+          </div>
+        `;
+      }
+    }
+
+    /*
     function escapeHtml(str) {
       const div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
     }
+    */
   </script>
 </body>
 </html>
