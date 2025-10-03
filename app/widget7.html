@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dummy File Download</title>
-</head>
-<body>
-
-    <h1>Download Dummy File</h1>
-
-    <p>Click the button below to download a dummy file:</p>
-
-    <a href="https://freetestdata.com/wp-content/uploads/2023/11/7.7-KB.txt" download="dummy.txt">
-        Download file
-    </a>
-
-</body>
+    <script src="./js/sdk1_5.js"></script>
+  </head>
+  <body>
+    <h2>This is a sample Widget built using Zoho Extension toolkit.</h2>
+    <script>
+      ZOHO.embeddedApp.on("PageLoad", function (data) {
+        console.log(data);
+        // Write your code here
+        ZDK.Client.showAlert('hello');
+      });
+    </script>
+  </body>
 </html>
